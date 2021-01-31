@@ -4,7 +4,7 @@
 
 class String{
 public:
-    String() = default;
+    String():data_(nullptr){}
     String(const char* str){
         printf("Created String!\n");
         size_ = strlen(str) + 1;
@@ -26,6 +26,22 @@ public:
         other.data_ = nullptr;
         other.size_ = 0;
     }
+    String& operator=(String&& other){
+        printf("Moved Assignment String!\n");
+
+        if(this == &other){
+            return *this;
+        }
+
+        size_ = 0;
+        delete [] data_;
+
+        size_ = other.size_;
+        data_ = other.data_;
+        other.data_ = nullptr;
+        other.size_ = 0;
+        return *this;
+    }
     ~String(){
         printf("Destroyed String!\n");
         size_ = 0;
@@ -38,47 +54,20 @@ private:
     char* data_;
     int size_;
 };
-class Entity{
-public:
-    Entity(const String& str):str_(str){
-        printf("Created Entity!\n");
-    }
-//    Entity(String&& str):str_(str){
-//        //inside of this method str is lvalue again!!! so we need to move it again
-//        printf("Moved Entity!\n");
-//    }
-    Entity(String&& str):str_(std::move(str)){
-        printf("Moved Entity!\n");
-    }
-    void PrintName(){
-        str_.Print();
-    }
-    ~Entity(){
-        printf("Destroyed Entity!\n");
-    }
-private:
-    String str_;
-};
 
 int main() {
-    //Entity obj(String("dmas"));
-    Entity obj("dmas");
-    obj.PrintName();
+
+    String str4;
+    String str5("Apple");
+    //str4 = str5; //use of deleted function ‘constexpr String& String::operator=(const String&)’
+    //str4.operator=(std::move(str5)); works well also
+    str4 = std::move(str5);
+    //std::move - convert the object to be a temporary. as a result you can steal resources from it
     //result
-//    Created String!
-//    Copied String!
-//    Created Entity!
-//    Destroyed String!
-//    dmas
-//    Destroyed Entity!
-//    Destroyed String!
-    //result 2
-//    Created String!
-//    Moved String!
-//    Moved Entity!
-//    Destroyed String!
-//    dmas
-//    Destroyed Entity!
-//    Destroyed String!
+//Created String!
+//Moved Assignment String!
+//Destroyed String!
+//Destroyed String!
+
     return 0;
 }
