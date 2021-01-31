@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/move0.dir/main.cpp.o  -o move0 
