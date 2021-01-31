@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
+
 class String{
 public:
     String() = default;
@@ -38,6 +39,20 @@ private:
     char* data_;
     int size_;
 };
+
+void TestString(const String& other)
+{
+    printf("void TestString(const String& other)\n");
+}
+void TestString(String& other)
+{
+    printf("void TestString(String& other)\n");
+}
+void TestString(String&& other)
+{
+    printf("void TestString(String&& other)\n");
+}
+
 class Entity{
 public:
     Entity(const String& str):str_(str){
@@ -48,7 +63,16 @@ public:
 //        printf("Moved Entity!\n");
 //    }
     Entity(String&& str):str_(std::move(str)){
+        /*
+         * str is detected as lvalue!!!
+         *
+         */
+
         printf("Moved Entity!\n");
+        printf("TestString(str)\n");
+        TestString(str);
+        printf("TestString(std::move(str))\n");
+        TestString(std::move(str));
     }
     void PrintName(){
         str_.Print();
