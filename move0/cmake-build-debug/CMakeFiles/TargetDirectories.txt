@@ -1,0 +1,3 @@
+/home/dmas/job_interview/cpp/move0/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/dmas/job_interview/cpp/move0/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/dmas/job_interview/cpp/move0/cmake-build-debug/CMakeFiles/move0.dir
