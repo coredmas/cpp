@@ -70,6 +70,7 @@ private:
             sample_ready->data_[pos] = store_of_floats.front();
             store_of_floats.pop_front();
         }
+        return sample_ready;
     }
 };
 

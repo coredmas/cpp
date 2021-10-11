@@ -50,6 +50,7 @@ public:
             std::cerr << "Error calling pthread_setaffinity_np: " << rc << std::endl;
         }
         std::cout << "Channel Started "<< channel_number_ << std::endl;
+        return 0;
     }
 
     int Stop()
@@ -61,6 +62,7 @@ public:
             thread_.join();
         }
         std::cout << "Channel Stopped " << channel_number_<< std::endl;
+        return 0;
     }
 
     void Run()
